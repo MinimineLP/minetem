@@ -1,0 +1,41 @@
+{
+  "blocks": [
+    {
+      "id": 1,
+      "textures": "misc/underwater"
+    },
+    {
+      "id": 2,
+      "textures": {
+        "up": "blocks/vine",
+        "down": "blocks/tube_coral",
+        "east": "blocks/tnt_top",
+        "west": "blocks/terracotta",
+        "north": "blocks/structure_block_save",
+        "south": "blocks/stripped_birch_log_top"
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "parent": "diamond_sword",
+      "texture": "blocks/birch_log"
+    },
+    {
+      "id": 1,
+      "parent": "elytra",
+      "texture": "blocks/crafting_table_top"
+    },
+    {
+      "id": 1,
+      "parent": "wooden_hoe",
+      "texture": "blocks/glowstone"
+    },
+    {
+      "id": 3,
+      "parent": "diamond_hoe",
+      "texture": "blocks/observer_front"
+    }
+  ]
+}
