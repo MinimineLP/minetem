@@ -30,7 +30,6 @@ function compile(json, dir) {
       if(!value.textures)console.throwException("CompilingError: Can't create a block without a texture");
 
       var textures;
-      var elements;
 
 
       if(value.textures instanceof Object) {

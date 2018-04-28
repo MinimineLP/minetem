@@ -10,7 +10,7 @@
 ## Usage
 
 Type **minetem** and add your arguments:
-- compile <souce-json\> <dest-folder\> - compile source json
+- compile <source-json\> <dest-folder\> - compile source json
 - debug - use debug mode (get debug information)
 ### JSON format
 ```json
@@ -37,19 +37,30 @@ Type **minetem** and add your arguments:
       "id": 1,
       "parent": "diamond_sword",
       "texture": "blocks/birch_log"
+    },
+    {
+      "id": 2,
+      "parent": "diamond_sword",
+      "model": "block/anvil"
     }
+  ],
+  "guis": [
+    {
+  		"id": 1,
+  		"texture": "customguis/1"
+	 }
   ]
 }
 ```
-- This is the json structure of the source json. in the first example of a block you define the id of the block (1) and than the texture. The parent of a block is automatically set to a diamond hoe. So to place the first block you habe to execute this command:
+- This is the json structure of the source json. in the first example of a block you define the id of the block (1) and then the texture. The parent of a block is automatically set to a diamond hoe. So to place the first block you have to execute this command:
 ```
 /setblock ~ ~ ~ minecraft:mob_spawner{SpawnData:{id:"minecraft:armor_stand",ArmorItems:[{},{},{},{id:"minecraft:diamond_hoe",Count:1b,tag:{Unbreakable:1b,Damage:1}}]}}
 ```
-- The first block is the same as the first, but in this example the block is not the same texture on the first every page of the block. We Also do this with the id, the secound block has also a diamond_hoe as parent like every block, so we mustn't have the same id for it. But this block has for every page side another texture, so we have to write them all manualy, and cant use the short form. To place this block type
+- The second block is the same as the first, but in this example the block is not the same texture on the first every page of the block. We also do this with the id, the second block has also a diamond_hoe as parent like every block, so we mustn't have the same id for it. But this block has for every page side another texture, so we have to write them all manually, and cant use the short form. To place this block type
 ```
 /setblock ~ ~ ~ minecraft:mob_spawner{SpawnData:{id:"minecraft:armor_stand",ArmorItems:[{},{},{},{id:"minecraft:diamond_hoe",Count:1b,tag:{Unbreakable:1b,Damage:2}}]}}
 ```
-- For an item we have to manualy define the parent. Becouse it has another parent as the diamond_hoe, we can take an id we already used for the blocks, the 1. Here we can just define one side of the texture, because an item texture has only one side. You can use the following parent types:
+- For an item we have to manually define the parent. Because it has another parent as the diamond_hoe, we can take an id we already used for the blocks, the 1. Here we can just define one side of the texture, because an item texture has only one side. You can use the following parent types:
 ```
 wooden_sword
 golden_sword
@@ -104,7 +115,14 @@ To get the Item from the last example just type
 ```
 /give @s minecraft:diamond_sword{Unbreakable:1b,Damage:1}
 ```
-
+- The second item is nearly the same as the first, but this time it has a custom model, no custom texture. With this model it will look like an anvil. To get it just type
+```
+/give @s minecraft:diamond_sword{Unbreakable:1b,Damage:2}
+```
+- The creating of an Inventory is nearly the same as the creating of a block, but we just can use one texture, not 6. As parent it has a diamond_shovel. To place it just type
+```
+/setblock ~ ~ ~ minecraft:chest{Items:[{Slot:0b,id:"minecraft:diamond_shovel",Count:1b,tag:{Unbreakable:1b,Damage:1}}]} replace
+```
 
 ## Authors
 
@@ -117,9 +135,6 @@ To get the Item from the last example just type
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-## Planned
-Model support for the items, **not the block**, with this block generating technology is that not possible!
 
 ## Issues
 It would be very nice, if you find a issue to report it via the github issue function.

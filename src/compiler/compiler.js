@@ -13,6 +13,7 @@ const path = require("path");
 const overwriter = require("./overwriter.js");
 const blocks = require("./blocks.js");
 const items = require("./items.js");
+const guis = require("./guis.js");
 const data = require("./data.js");
 const util = require("./util.js");
 
@@ -56,6 +57,7 @@ function compile(src, dest) {
 
   blocks.compile(json, dir);
   items.compile(json, dir);
+  guis.compile(json, dir);
   overwriter.generateOverwrites(dir);
 
   console.log("Compiling successfully finished!");

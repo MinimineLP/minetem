@@ -4,7 +4,10 @@
   "description": "An easy way to add blocks and other stuff to minecraft",
   "main": "src/index.js",
   "scripts": {
-    "test": "node src/index.js"
+    "test": "echo error:&echo No test specified"
+  },
+  "bin": {
+    "minetem": "src/index.js"
   },
   "author": "Minimine",
   "license": "ISC",

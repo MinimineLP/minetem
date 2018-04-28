@@ -18,18 +18,25 @@ module.exports = {
 function generateOverwrites(dir) {
   data.ids.forEach(function(key, value) {
     if(value.length>0) {
-      var overwrites = util.overwriteLayout.start
-        .replaceAll('%type%', key);
+      var overwrites = util.overwriteLayout.start;
 
-      value.forEach(function(value) {
-        overwrites += util.overwriteLayout.overwrite
-          .replaceAll('%type%', key)
-          .replaceAll('%id%', value)
-          .replaceAll('%damage%', value*(1/util.damage[key]));
+      value.forEach(function(val) {
+        var model = null;
+        if(!Number.isInteger(val)){
+          model = val[1];
+          val = val[0];
+        }
+        var overwrite = util.overwriteLayout.overwrite
+          .replaceAll('%damage%', val*(1/util.damage[key]));
+
+        if(model != null) overwrite = overwrite.replaceAll('%location%', model);
+        else overwrite = overwrite.replaceAll('%location%', `custom/${key}/${val}`);
+
+        overwrites += overwrite;
       });
 
-      overwrites+=util.overwriteLayout.end
-        .replaceAll('%type%', key);
+      overwrites+=util.overwriteLayout.end;
+      overwrites = overwrites.replaceAll('%type%', key);
 
       var path = dir+`\\assets\\minecraft\\models\\item\\${key}.json`;
       fs.writeFileSync(path, overwrites);
