@@ -57,6 +57,8 @@ function compile(src, dest) {
   blocks.compile(json, dir);
   items.compile(json, dir);
   overwriter.generateOverwrites(dir);
+
+  console.log("Compiling successfully finished!");
 }
 
 function deleteRecursive(path) {

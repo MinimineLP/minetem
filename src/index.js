@@ -18,5 +18,3 @@ console.debug("Debug is enabled");
 modules.setupModules();
 
 modules.executeArguments(actions);
-
-console.log("Compiling successfully finished!");
