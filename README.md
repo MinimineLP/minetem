@@ -1,10 +1,11 @@
 # Minetem
 
-[Minetem](github.com/MinimineLP/Minetem) is a good possibility to add new items and blocks to Minecraft in Vanilla
+[Minetem](github.com/MinimineLP/Minetem) is a good possibility to add new items and blocks to Minecraft in Vanilla. [NPM](https://www.npmjs.com/minetem)
 
 ## Installation
 
-* Install npm
+* Install node.js
+* On Linux install npm
 * Just type `npm i -g minetem`
 
 ## Usage
