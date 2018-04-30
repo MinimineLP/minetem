@@ -33,9 +33,6 @@ Type **minetem** and add your arguments:
 
 * [NodeJS](https://nodejs.org/en/)
 
-## Used dependencies
-- [update-notifier](https://www.npmjs.com/package/update-notifier)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
