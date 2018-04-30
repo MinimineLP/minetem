@@ -1,6 +1,6 @@
 # Minetem
 
-[Minetem](https://github.com/MinimineLP/Minetem) is a good possibility to add new items and blocks to Minecraft in Vanilla. [NPM](https://www.npmjs.com/minetem)
+[Minetem](https://github.com/MinimineLP/Minetem) is a good possibility to add new items and blocks to Minecraft in Vanilla. [NPM](https://www.npmjs.com/minetem). Join our [official discord](https://discord.gg/8b9rsdV).
 
 ## Features
 - Easy adding of Blocks, Items and GUI
