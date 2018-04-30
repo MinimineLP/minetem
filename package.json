@@ -1,6 +1,6 @@
 {
   "name": "minetem",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "description": "An easy way to add blocks and other stuff to minecraft",
   "main": "src/index.js",
   "scripts": {
@@ -10,8 +10,15 @@
     "minetem": "src/index.js"
   },
   "author": "Minimine",
-  "license": "ISC",
-  "dependencies": {},
-  "repository": "github.com/MinimineLP/Minetem",
+  "license": "MIT",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/MinimineLP/Minetem.git"
+  },
+  "homepage":"https://miniminelp.github.io/minetem/",
+  "bugs": {
+    "url":"https://github.com/MinimineLP/minetem/issues"
+  },
   "preferGlobal": "true"
 }
