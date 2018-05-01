@@ -25,7 +25,9 @@ function compile(json, dir) {
       if(!Number.isInteger(value.id))console.throwException("CompilingError: The id must be a positive number between 1 and 1562");
       if(parseInt(value.id)<1 || parseInt(value.id)>1562)console.throwException("CompilingError: The id must be a positive number between 1 and 1562");
 
-      if(value.id in data.ids.diamond_hoe) console.throwException("CompilingError: Can't use that id, please try another, it is propably used for another texture.");
+      if(!value.parent)value.parent = "diamond_hoe";
+
+      if(value.id in data.ids[value.parent]) console.throwException("CompilingError: Can't use that id, please try another, it is propably used for another texture.");
 
       if(!value.textures)console.throwException("CompilingError: Can't create a block without a texture");
 
@@ -72,13 +74,13 @@ function compile(json, dir) {
                 .replaceAll('	','');
 
 
-      var path = dir+`\\assets\\minecraft\\models\\custom\\diamond_hoe\\${value.id}.json`;
+      var path = dir+`\\assets\\minecraft\\models\\custom\\${value.parent}\\${value.id}.json`;
       writeFile(path, json);
 
       // DEBUG:
       console.debug(`Compiled block with id ${value.id} into file `+fixBackslash(path));
 
-      data.ids.diamond_hoe.push(value.id);
+      data.ids[value.parent].push(value.id);
     });
   }
 }

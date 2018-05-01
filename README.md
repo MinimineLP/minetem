@@ -29,6 +29,12 @@ Type **minetem** and add your arguments:
 
 * **Minimine** - *Initial work* - [Minimine](https://github.com/MinimineLP)
 
+## Credits
+
+**Some of the methods aren't my idea. So here I want to link persons from that i have some of the ideas:**
+- [SimplySarc](https://www.youtube.com/channel/UCI4Ppudb5EGHNpIYQPVpKdw)
+- [Halbzwilling](https://www.youtube.com/user/Halbzwilling)
+
 ## Built in
 
 * [NodeJS](https://nodejs.org/en/)
