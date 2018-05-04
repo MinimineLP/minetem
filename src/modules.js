@@ -46,9 +46,8 @@ function executeArguments(args) {
       var src = value[0];
       var dest = value[1];
 
-      module.exports.compiler.compile(src, dest);
+      module.exports.compiler.compile(src, dest, args["generatefunctions"]);
     }
-
   });
 
 }

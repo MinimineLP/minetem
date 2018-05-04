@@ -9,7 +9,8 @@
 
  const argumentpossibilitys = {
    "compile": 2,
-   "debug": 0
+   "debug": 0,
+   "generatefunctions": 1
  };
 
 module.exports = {

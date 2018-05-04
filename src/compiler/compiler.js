@@ -23,7 +23,7 @@ module.exports = {
 
 createData();
 
-function compile(src, dest) {
+function compile(src, dest, functiondir) {
   if(!fs.existsSync(src)) console.throwException("Your compile-source must be an existing file!");
   if(!fs.existsSync(dest)) console.throwException("Your compile-destribunation must be an existing folder!");
   if(fs.lstatSync(src).isDirectory()) console.throwException("Source must be a file, not a Directory!");
@@ -55,9 +55,35 @@ function compile(src, dest) {
   // DEBUG:
   console.debug(`Created file: ${fixBackslash(dir+"\\pack.mcmeta")}`);
 
-  blocks.compile(json, dir);
-  items.compile(json, dir);
-  guis.compile(json, dir);
+
+
+  if(functiondir != undefined) {
+    functiondir += `/${name}`;
+
+    if(!fs.existsSync(functiondir))writeFile("functiondir",
+    `{
+      "pack": {
+        "pack_format": 0,
+        "description": "Examples generated with Minetem compiler\\nhttps://github.com/MinimineLP/minetem/"
+      }
+    }`);
+
+    functiondir += `/data/${name.toLowerCase()}`;
+
+    deleteIfExists(`${functiondir}/functions/blocks`);
+    deleteIfExists(`${functiondir}/functions/items`);
+    deleteIfExists(`${functiondir}/functions/guis`);
+    deleteIfExists(`${functiondir}/scripts/blocks`);
+    deleteIfExists(`${functiondir}/scripts/items`);
+    deleteIfExists(`${functiondir}/scripts/guis`);
+  }
+
+
+  // Compile Items
+  blocks.compile(json, dir, functiondir);
+  items.compile(json, dir, functiondir);
+  guis.compile(json, dir, functiondir);
+
   overwriter.generateOverwrites(dir);
 
   console.log("Compiling successfully finished!");
@@ -79,6 +105,25 @@ function deleteRecursive(path) {
     // DEBUG:
     console.debug(`deleted file: ${fixBackslash(path)}`);
   }
+}
+function writeFile(file, content) {
+  if(fs.existsSync(file)) console.throwException("CompilingError: Can't use that id, please try another, it is propably used for another texture.");
+
+  file = file.replaceAll("\\\\", "/");
+
+  var parts = file.split("/");
+  for(var i=1;i<parts.length;i++){
+
+    var path = "";
+
+    for(var c=0;c<i;c++)
+      path += parts[c]+"/";
+
+    if(!fs.existsSync(path)) createDir(path);
+
+  }
+
+  fs.writeFileSync(file, content);
 }
 
 function fixBackslash(str) {
@@ -110,4 +155,8 @@ function createDirs(dir) {
   createDirIfNotExists(dir+"\\assets\\minecraft\\models");
   createDirIfNotExists(dir+"\\assets\\minecraft\\models\\item");
   createDir(dir+"\\assets\\minecraft\\models\\custom");
+}
+
+function deleteIfExists(path) {
+  if(fs.existsSync(path))deleteRecursive(path);
 }

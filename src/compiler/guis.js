@@ -16,7 +16,7 @@ module.exports = {
   compile: compile
 }
 
-function compile(json, dir) {
+function compile(json, dir, functiondir) {
 
   if(json.guis) {
     json.guis.forEach(function(value) {
@@ -33,6 +33,7 @@ function compile(json, dir) {
       if(!value.texture)console.throwException("CompilingError: Can't create a gui without a texture");
 
       var json = "";
+
       if(value.inventory == true) json = util.textureFileLayout.inventory;
       else json = util.textureFileLayout.gui;
 
@@ -48,8 +49,56 @@ function compile(json, dir) {
       // DEBUG:
       console.debug(`Compiled gui with id ${value.id} into file `+fixBackslash(path));
 
+      if(functiondir!=undefined)createFunctions(functiondir, value.parent, value.id, value.inventory);
+
       data.ids[value.parent].push(value.id);
     });
+  }
+}
+
+function createFunctions(functiondir, parent, id, type) {
+  if(type == true) {
+    // Example give mcfunction
+    var path = fixBackslash(functiondir) + `/functions/guis/${parent}/id_${id}/setblock.mcfunction`;
+    writeFile (path,
+      `${util.mcfunctionCredits}setblock ~ ~ ~ minecraft:chest{Items:[{Slot:0b,id:"minecraft:${parent}",Count:1b,tag:{Unbreakable:1b,Damage:${id}}}]}\n` +
+      `data merge block ~ ~ ~ {Items:[{Slot:0b,id:"minecraft:${parent}",Count:1b,tag:{Unbreakable:1b,Damage:${id}}}]}`
+    );
+
+    // DEBUG:
+    console.debug(`Generated example function: ${path}`);
+
+
+
+    // Example give mcscript
+    path = fixBackslash(functiondir) + `/scripts/guis/${parent}/id_${id}/setblock.mcscript`;
+    writeFile (path,
+      `${util.mcscriptCredits}/setblock ~ ~ ~ minecraft:chest{Items:[{Slot:0b,id:"minecraft:${parent}",Count:1b,tag:{Unbreakable:1b,Damage:${id}}}]}\n` +
+      `/data merge block ~ ~ ~ {Items:[{Slot:0b,id:"minecraft:${parent}",Count:1b,tag:{Unbreakable:1b,Damage:${id}}}]}`
+    );
+
+    // DEBUG:
+    console.debug(`Generated example mcscript: ${path}`);
+  } else {
+    // Example give mcfunction
+    var path = fixBackslash(functiondir) + `/functions/guis/${parent}/id_${id}/give.mcfunction`;
+    writeFile (path,
+      `${util.mcfunctionCredits}give @s ${parent}{Unbreakable:1b,Damage:${id}} 1`
+    );
+
+    // DEBUG:
+    console.debug(`Generated example function: ${path}`);
+
+
+
+    // Example give mcscript
+    path = fixBackslash(functiondir) + `/scripts/guis/${parent}/id_${id}/setblock.mcscript`
+    writeFile (path,
+      `${util.mcscriptCredits}/give @s ${parent}{Unbreakable:1b,Damage:${id}} 1`
+    );
+
+    // DEBUG:
+    console.debug(`Generated example mcscript: ${path}`);
   }
 }
 

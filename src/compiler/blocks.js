@@ -16,7 +16,7 @@ module.exports = {
   compile: compile
 }
 
-function compile(json, dir) {
+function compile(json, dir, functiondir) {
 
   if(json.blocks) {
     json.blocks.forEach(function(value) {
@@ -80,9 +80,35 @@ function compile(json, dir) {
       // DEBUG:
       console.debug(`Compiled block with id ${value.id} into file `+fixBackslash(path));
 
+      if(functiondir!=undefined)createFunctions(functiondir, value.parent, value.id);
+
+
       data.ids[value.parent].push(value.id);
     });
   }
+}
+
+function createFunctions(functiondir, parent, id) {
+
+  // Example give mcfunction
+  var path = fixBackslash(functiondir) + `/functions/blocks/${parent}/id_${id}/setblock.mcfunction`
+  writeFile (path,
+    `${util.mcfunctionCredits}setblock ~ ~ ~ minecraft:mob_spawner{SpawnData:{id:"minecraft:armor_stand",ArmorItems:[{},{},{},{id:"minecraft:${parent}",Count:1b,tag:{Unbreakable:1b,Damage:${id}}}]}}`
+  );
+
+  // DEBUG:
+  console.debug(`Generated example function: ${path}`);
+
+
+
+  // Example give mcscript
+  path = fixBackslash(functiondir) + `/scripts/blocks/${parent}/id_${id}/give.mcscript`
+  writeFile (path,
+    `${util.mcscriptCredits}/setblock ~ ~ ~ minecraft:mob_spawner{SpawnData:{id:"minecraft:armor_stand",ArmorItems:[{},{},{},{id:"minecraft:${parent}",Count:1b,tag:{Unbreakable:1b,Damage:${id}}}]}}`
+  );
+
+  // DEBUG:
+  console.debug(`Generated example mcscript: ${path}`)
 }
 
 function fixBackslash(str) {
@@ -102,9 +128,16 @@ function writeFile(file, content) {
     for(var c=0;c<i;c++)
       path += parts[c]+"/";
 
-    if(!fs.existsSync(path))fs.mkdirSync(path);
+    if(!fs.existsSync(path)) createDir(path);
 
   }
 
   fs.writeFileSync(file, content);
+}
+
+function createDir(dir) {
+  fs.mkdirSync(dir);
+
+  // DEBUG:
+  console.debug(`Created dir: ${fixBackslash(dir)}`);
 }

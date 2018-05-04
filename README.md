@@ -45,6 +45,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Issues
 It would be very nice, if you find a issue to report it via the github issue function.
-
-## Planned
-- Auto-generated functions

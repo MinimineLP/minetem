@@ -95,9 +95,15 @@ const damage = {
 
   // Fishing rod
   fishing_rod: 65,
+
+  // Bow
+  bow: 385,
 }
 module.exports = {
   overwriteLayout: overwriteLayout,
   textureFileLayout: textureFileLayout,
   damage: damage,
+  mcscriptCredits: "// Generated with minetem\n// This is a mcscript script. More information: http://stevertus.ga/mcscript\n\n",
+  mcfunctionCredits: "# Generated with minetem\n\n",
+
 }

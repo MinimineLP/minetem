@@ -16,7 +16,7 @@ module.exports = {
   compile: compile
 }
 
-function compile(json, dir) {
+function compile(json, dir, functiondir) {
 
   if(json.items) {
     json.items.forEach(function(value) {
@@ -41,12 +41,38 @@ function compile(json, dir) {
         // DEBUG:
         console.debug(`Compiled item with id ${value.id} and parent ${value.parent} into file `+fixBackslash(path));
 
+        if(functiondir!=undefined)createFunctions(functiondir, value.parent, value.id);
+
         data.ids[value.parent].push(value.id);
       } else {
         data.ids[value.parent].push([value.id,value.model]);
       }
     });
   }
+}
+
+function createFunctions(functiondir, parent, id) {
+
+  // Example give mcfunction
+  var path = fixBackslash(functiondir) + `/functions/items/${parent}/id_${id}/give.mcfunction`
+  writeFile (path,
+    `${util.mcfunctionCredits}give @s ${parent}{Unbreakable:1b,Damage:${id}} 1`
+  );
+  // DEBUG:
+  console.debug(`Generated example mcfunction: ${path}`);
+
+
+
+  // Example give mcscript
+  path = fixBackslash(functiondir) + `/scripts/items/${parent}/id_${id}/give.mcfunction`
+  writeFile (path,
+    `${util.mcscriptCredits}/give @s ${parent}{Unbreakable:1b,Damage:${id}} 1`
+  );
+
+  // DEBUG:
+  console.debug(`Generated example mcscript: ${path}`)
+
+
 }
 
 function fixBackslash(str) {
